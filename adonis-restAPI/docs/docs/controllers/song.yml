@@ -1,0 +1,161 @@
+$ref: './header.yml'
+paths:
+  /api/playlists/{id}/songs:
+    get:
+      tags:
+      - Playlist Songs
+      summary: Retrieve playlist songs
+      operationId: retrieveSongs
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+          examples:
+            one:
+              summary: Retrieve Songs of Playlist 1
+              value: 1
+            two:
+              summary: Retrieve Songs of Playlist 2
+              value: 2
+      responses:
+        "200":
+          description: Array of Songs model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Song'
+                x-content-type: application/json
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+      x-swagger-router-controller: SongController
+    post:
+      tags:
+      - Playlist Songs
+      summary: Create playlist song
+      operationId: createSong
+      security:
+        - jwtAuth: []
+      consumes:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          explode: false
+          schema: 
+            minimum: 1
+            type: integer
+            format: int64
+          examples:
+            one:
+              summary: Playlist 1
+              value: 1
+            two:
+              summary: Playlist 2
+              value: 2
+        - in: body
+          name: body
+          description: Song object that needs to be added to the playlist
+          required: true
+          schema:
+            $ref: '#/definitions/Song'
+      responses:
+        "200":
+          description: Create a Song model instance
+          schema:
+            $ref: '#/definitions/Song'
+        "400":
+          description: Bad request
+      x-swagger-router-controller: SongController
+  /api/songs/{id}:
+    patch:
+      tags:
+      - Playlist Songs
+      summary: Update Song
+      operationId: updateSong
+      security:
+        - jwtAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Song id 1
+            value: 1
+          two:
+            summary: Update Song id 2
+            value: 2
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            artist:
+              type: string
+              example: Taylor Swift
+            name:
+              type: string
+              example: Red
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Song PATCH success
+                $ref: '#/components/schemas/Song'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: PlaylistController
+    delete:
+      tags:
+      - Playlist Songs
+      summary: Delete Song
+      operationId: deleteSong
+      security:
+        - jwtAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Delete Song id 1
+            value: 1
+          two:
+            summary: Delete Song id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: PlaylistsController
+      

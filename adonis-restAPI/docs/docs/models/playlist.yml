@@ -1,0 +1,9 @@
+definitions:        
+  Playlist:
+    type: object
+    properties:
+      title:
+        type: string
+        example: My Playlist 1
+    required:
+      - title

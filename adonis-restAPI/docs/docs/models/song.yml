@@ -1,0 +1,13 @@
+definitions:
+  Song:
+    type: object
+    properties:
+      artist:
+        type: string
+        example: Taylor Swift
+      name:
+        type: string
+        example: Red
+    required:
+      - artist
+      - name
