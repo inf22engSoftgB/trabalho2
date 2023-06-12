@@ -43,3 +43,8 @@ Desenvolvimento REST API com Adonis.js versão 4 (Continuação)
  
 Desenvolvimento do Frontend em React
 
+# Sprint 4
+Contentarização dos serviços via docker
+
+a) docker-compose up
+
